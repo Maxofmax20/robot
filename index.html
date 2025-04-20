@@ -200,6 +200,26 @@
             transition: opacity 0.3s, visibility 0.3s;
             font-size: 14px;
         }
+        .tooltip .tooltiptext::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #003087 transparent transparent transparent;
+        }
+        .tooltip .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 16px;
+            cursor: pointer;
+        }
         .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
@@ -274,17 +294,21 @@
                 font-size: 14px;
             }
             .tooltip .tooltiptext {
-                position: fixed;
-                width: 80%;
-                max-width: 300px;
+                width: 90%;
+                max-width: 250px;
                 bottom: auto;
-                top: 50%;
+                top: calc(100% + 10px);
                 left: 50%;
-                transform: translate(-50%, -50%);
+                transform: translateX(-50%);
                 z-index: 1001;
                 font-size: 12px;
-                padding: 15px;
+                padding: 10px;
                 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            }
+            .tooltip .tooltiptext::after {
+                top: auto;
+                bottom: 100%;
+                border-color: transparent transparent #003087 transparent;
             }
             .tooltip:hover .tooltiptext {
                 visibility: hidden;
@@ -395,20 +419,20 @@
                     <span class="social-name">Horus University</span>
                     <a href="https://www.facebook.com/HorusUniversity" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png" alt="Facebook" class="social-icon"></a>
                     <a href="https://www.instagram.com/ieeehue/" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/instagram-new.png" alt="Instagram" class="social-icon"></a>
-                    <span class="tooltiptext">Horus University: Established in 2016 in New Damietta, Egypt. It focuses on practical education and international partnerships, offering advanced programs in medicine, engineering, and business administration.</span>
+                    <span class="tooltiptext">Horus University: Established in 2016 in New Damietta, Egypt. It focuses on practical education and international partnerships, offering advanced programs in medicine, engineering, and business administration.<button class="close-btn">✖</button></span>
                 </span>, 
                 <span class="social-group tooltip">
                     <span class="social-name">Benha University</span>
                     <a href="https://www.facebook.com/IEEEBUBSB" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png" alt="Facebook" class="social-icon"></a>
                     <a href="https://www.instagram.com/ieee_bu_sb/" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/instagram-new.png" alt="Instagram" class="social-icon"></a>
-                    <span class="tooltiptext">Benha University: Founded in 1976 as a branch of Zagazig University, became independent in 2005. Located in Benha, Qalyubia. It aims to lead in education, research, and community service.</span>
+                    <span class="tooltiptext">Benha University: Founded in 1976 as a branch of Zagazig University, became independent in 2005. Located in Benha, Qalyubia. It aims to lead in education, research, and community service.<button class="close-btn">✖</button></span>
                 </span>, 
                 and 
                 <span class="social-group tooltip">
                     <span class="social-name">South Valley University</span>
                     <a href="https://www.facebook.com/SouthValleyUniversity" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png" alt="Facebook" class="social-icon"></a>
                     <a href="https://www.instagram.com/southvalleyuniversity" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/instagram-new.png" alt="Instagram" class="social-icon"></a>
-                    <span class="tooltiptext">South Valley University: Established in 1995, based in Qena, Egypt. It serves southern Egypt governorates like Qena, Luxor, and Aswan, focusing on education and research development.</span>
+                    <span class="tooltiptext">South Valley University: Established in 1995, based in Qena, Egypt. It serves southern Egypt governorates like Qena, Luxor, and Aswan, focusing on education and research development.<button class="close-btn">✖</button></span>
                 </span> 
                 — a group of passionate student engineers dedicated to spreading the culture of robotics and innovation among youth across Egypt.
             </p>
@@ -514,7 +538,7 @@
                         <span class="social-name">Horus University</span>
                         <a href="https://www.facebook.com/HorusUniversity" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png" alt="Facebook" class="social-icon"></a>
                         <a href="https://www.instagram.com/ieeehue/" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/instagram-new.png" alt="Instagram" class="social-icon"></a>
-                        <span class="tooltiptext">Horus University: Established in 2016 in New Damietta, Egypt. It focuses on practical education and international partnerships, offering advanced programs in medicine, engineering, and business administration.</span>
+                        <span class="tooltiptext">Horus University: Established in 2016 in New Damietta, Egypt. It focuses on practical education and international partnerships, offering advanced programs in medicine, engineering, and business administration.<button class="close-btn">✖</button></span>
                     </span>
                 </li>
                 <li>
@@ -522,7 +546,7 @@
                         <span class="social-name">Benha University</span>
                         <a href="https://www.facebook.com/IEEEBUBSB" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png" alt="Facebook" class="social-icon"></a>
                         <a href="https://www.instagram.com/ieee_bu_sb/" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/instagram-new.png" alt="Instagram" class="social-icon"></a>
-                        <span class="tooltiptext">Benha University: Founded in 1976 as a branch of Zagazig University, became independent in 2005. Located in Benha, Qalyubia. It aims to lead in education, research, and community service.</span>
+                        <span class="tooltiptext">Benha University: Founded in 1976 as a branch of Zagazig University, became independent in 2005. Located in Benha, Qalyubia. It aims to lead in education, research, and community service.<button class="close-btn">✖</button></span>
                     </span>
                 </li>
                 <li>
@@ -530,7 +554,7 @@
                         <span class="social-name">South Valley University</span>
                         <a href="https://www.facebook.com/SouthValleyUniversity" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png" alt="Facebook" class="social-icon"></a>
                         <a href="https://www.instagram.com/southvalleyuniversity" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/instagram-new.png" alt="Instagram" class="social-icon"></a>
-                        <span class="tooltiptext">South Valley University: Established in 1995, based in Qena, Egypt. It serves southern Egypt governorates like Qena, Luxor, and Aswan, focusing on education and research development.</span>
+                        <span class="tooltiptext">South Valley University: Established in 1995, based in Qena, Egypt. It serves southern Egypt governorates like Qena, Luxor, and Aswan, focusing on education and research development.<button class="close-btn">✖</button></span>
                     </span>
                 </li>
             </ul>
@@ -545,7 +569,7 @@
                         <span class="social-name">IEEE Technical Team – Horus University</span>
                         <a href="https://www.facebook.com/IEEEHUE" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png" alt="Facebook" class="social-icon"></a>
                         <a href="https://www.instagram.com/ieeehue/" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/instagram-new.png" alt="Instagram" class="social-icon"></a>
-                        <span class="tooltiptext">IEEE Horus Student Branch: A student branch under IEEE (founded globally in 1963). It promotes technology and engineering culture through workshops, lectures, and competitions like this Robo Competition.</span>
+                        <span class="tooltiptext">IEEE Horus Student Branch: A student branch under IEEE (founded globally in 1963). It promotes technology and engineering culture through workshops, lectures, and competitions like this Robo Competition.<button class="close-btn">✖</button></span>
                     </span>
                 </li>
                 <li>
@@ -553,7 +577,7 @@
                         <span class="social-name">IEEE Technical Team – Benha University</span>
                         <a href="https://www.facebook.com/IEEEBUBSB" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png" alt="Facebook" class="social-icon"></a>
                         <a href="https://www.instagram.com/ieee_bu_sb/" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/instagram-new.png" alt="Instagram" class="social-icon"></a>
-                        <span class="tooltiptext">Benha University: Founded in 1976 as a branch of Zagazig University, became independent in 2005. Located in Benha, Qalyubia. It aims to lead in education, research, and community service.</span>
+                        <span class="tooltiptext">Benha University: Founded in 1976 as a branch of Zagazig University, became independent in 2005. Located in Benha, Qalyubia. It aims to lead in education, research, and community service.<button class="close-btn">✖</button></span>
                     </span>
                 </li>
                 <li>
@@ -561,7 +585,7 @@
                         <span class="social-name">IEEE Technical Team – South Valley University</span>
                         <a href="https://www.facebook.com/SouthValleyUniversity" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png" alt="Facebook" class="social-icon"></a>
                         <a href="https://www.instagram.com/southvalleyuniversity" target="_blank" class="social-link"><img src="https://img.icons8.com/ios-filled/50/FFFFFF/instagram-new.png" alt="Instagram" class="social-icon"></a>
-                        <span class="tooltiptext">South Valley University: Established in 1995, based in Qena, Egypt. It serves southern Egypt governorates like Qena, Luxor, and Aswan, focusing on education and research development.</span>
+                        <span class="tooltiptext">South Valley University: Established in 1995, based in Qena, Egypt. It serves southern Egypt governorates like Qena, Luxor, and Aswan, focusing on education and research development.<button class="close-btn">✖</button></span>
                     </span>
                 </li>
             </ul>
@@ -584,42 +608,75 @@
     <script>
         // Tooltip Functionality
         document.querySelectorAll('.tooltip').forEach(tooltip => {
-            let timeout;
-            tooltip.addEventListener('click', function() {
+            const tooltipText = tooltip.querySelector('.tooltiptext');
+            const closeBtn = tooltipText.querySelector('.close-btn');
+
+            tooltip.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent click from bubbling to document
                 if (window.matchMedia("(max-width: 768px)").matches) {
+                    // Close all other tooltips
+                    document.querySelectorAll('.tooltip.active').forEach(t => {
+                        if (t !== this) {
+                            t.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle current tooltip
                     if (this.classList.contains('active')) {
                         this.classList.remove('active');
-                        clearTimeout(timeout);
                     } else {
-                        document.querySelectorAll('.tooltip.active').forEach(t => t.classList.remove('active'));
                         this.classList.add('active');
-                        timeout = setTimeout(() => {
-                            this.classList.remove('active');
-                        }, 5000);
                         document.getElementById('gears-sound').play();
                     }
                 }
             });
 
             tooltip.addEventListener('mouseover', function() {
-                console.log('Mouse over:', this);
-                document.querySelectorAll('.tooltip').forEach(t => {
-                    if (t !== this) {
-                        t.querySelector('.tooltiptext').style.visibility = 'hidden';
-                        t.querySelector('.tooltiptext').style.opacity = '0';
-                    }
-                });
-                const tooltipText = this.querySelector('.tooltiptext');
-                tooltipText.style.visibility = 'visible';
-                tooltipText.style.opacity = '1';
+                if (!window.matchMedia("(max-width: 768px)").matches) {
+                    // Close all other tooltips
+                    document.querySelectorAll('.tooltip').forEach(t => {
+                        if (t !== this) {
+                            t.querySelector('.tooltiptext').style.visibility = 'hidden';
+                            t.querySelector('.tooltiptext').style.opacity = '0';
+                        }
+                    });
+                    tooltipText.style.visibility = 'visible';
+                    tooltipText.style.opacity = '1';
+                }
             });
 
             tooltip.addEventListener('mouseout', function() {
-                console.log('Mouse out:', this);
-                const tooltipText = this.querySelector('.tooltiptext');
-                tooltipText.style.visibility = 'hidden';
-                tooltipText.style.opacity = '0';
+                if (!window.matchMedia("(max-width: 768px)").matches) {
+                    tooltipText.style.visibility = 'hidden';
+                    tooltipText.style.opacity = '0';
+                }
             });
+
+            // Close button functionality
+            closeBtn.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent click from bubbling to tooltip
+                tooltip.classList.remove('active');
+            });
+        });
+
+        // Close tooltips when clicking outside
+        document.addEventListener('click', function(event) {
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                const tooltips = document.querySelectorAll('.tooltip');
+                let clickedInsideTooltip = false;
+
+                tooltips.forEach(tooltip => {
+                    if (tooltip.contains(event.target)) {
+                        clickedInsideTooltip = true;
+                    }
+                });
+
+                if (!clickedInsideTooltip) {
+                    document.querySelectorAll('.tooltip.active').forEach(tooltip => {
+                        tooltip.classList.remove('active');
+                    });
+                }
+            }
         });
 
         // Audio for Rounds
