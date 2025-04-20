@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robo Competition Rule Book</title>
     <link rel="icon" type="image/png" href="https://i.imgur.com/Se8TLnw.png">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Roboto', Arial, sans-serif;
+            font-family: 'Poppins', 'Roboto', Arial, sans-serif;
             line-height: 1.8;
             color: #FFFFFF;
             background: linear-gradient(135deg, #121212 0%, #003087 100%);
@@ -29,6 +29,7 @@
             align-items: center;
             position: relative;
             overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
         }
         body::before {
             content: '';
@@ -40,31 +41,91 @@
             background: inherit;
             opacity: 0.2;
             z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+        /* Light Mode Styles */
+        body.light-mode {
+            background: linear-gradient(135deg, #FFFFFF 0%, #E0E0E0 100%);
+            background-image: url('https://i.imgur.com/Se8TLnw.png');
+            background-size: 50%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333333;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        body.light-mode::before {
+            opacity: 0.1;
+        }
+        body.light-mode .container {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(220, 220, 220, 0.9));
+            border: 1px solid #CCC;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        body.light-mode h2,
+        body.light-mode p,
+        body.light-mode li,
+        body.light-mode .social-name {
+            color: #333333;
+            text-shadow: none;
+        }
+        body.light-mode h1 {
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        body.light-mode h2 {
+            border-bottom: 2px solid #003087;
+        }
+        body.light-mode .section {
+            background: linear-gradient(145deg, rgba(240, 240, 240, 0.9), rgba(200, 200, 200, 0.8));
+            border: 1px solid #CCC;
+        }
+        body.light-mode .section:hover {
+            background: linear-gradient(145deg, rgba(220, 220, 220, 0.9), rgba(180, 180, 180, 0.8));
+        }
+        body.light-mode .motto {
+            color: #003087;
+        }
+        body.light-mode .tooltip .tooltiptext {
+            background-color: #003087;
+            color: #FFFFFF;
+        }
+        body.light-mode .tooltip .tooltiptext::after {
+            border-color: #003087 transparent transparent transparent;
         }
         .container {
             max-width: 900px;
-            background: rgba(30, 30, 30, 0.95);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.95), rgba(50, 50, 50, 0.9));
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
             border: 1px solid #333;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
             animation: fadeIn 2s ease-in-out;
             position: relative;
             z-index: 1;
+            transition: background 0.5s ease, border 0.5s ease, box-shadow 0.5s ease;
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
         }
         h1 {
             text-align: center;
             font-size: 36px;
-            color: #FFFFFF;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 20px;
             animation: slideDown 1s ease-in-out;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            transition: text-shadow 0.5s ease, color 0.5s ease;
         }
         h2 {
             font-size: 24px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
             color: #003087;
             margin-top: 30px;
             border-bottom: 2px solid #003087;
@@ -74,12 +135,15 @@
             cursor: pointer;
             display: flex;
             align-items: center;
+            transition: color 0.5s ease;
         }
         p, li {
             font-size: 16px;
+            font-family: 'Roboto', sans-serif;
             color: #FFFFFF;
-            margin: 10px 0;
+            margin: 15px 0;
             animation: slideInRight 1.2s ease-in-out;
+            transition: color 0.5s ease;
         }
         ul {
             list-style: none;
@@ -103,46 +167,62 @@
             transform: translateX(5px);
         }
         .section {
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 10px;
-            background: rgba(42, 42, 42, 0.7);
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 15px;
+            background: linear-gradient(145deg, rgba(42, 42, 42, 0.9), rgba(60, 60, 60, 0.8));
             border: 1px solid #444;
-            transition: all 0.3s ease;
+            transition: background 0.5s ease, border 0.5s ease, box-shadow 0.5s ease;
         }
         .section:hover {
-            box-shadow: 0 0 10px rgba(0, 48, 135, 0.5);
+            background: linear-gradient(145deg, rgba(60, 60, 60, 0.9), rgba(80, 80, 80, 0.8));
+            box-shadow: 0 0 15px rgba(0, 48, 135, 0.6);
         }
         .motto {
             text-align: center;
             font-size: 20px;
             font-style: italic;
+            font-family: 'Roboto', sans-serif;
             color: #003087;
             margin-top: 40px;
             animation: pulse 2s infinite;
+            transition: color 0.5s ease;
         }
         .button-group {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
+            gap: 15px;
+            margin: 30px 0;
         }
         .download-btn, .register-btn {
             flex: 1;
             max-width: 200px;
-            padding: 10px 20px;
-            background: #003087;
+            padding: 12px 25px;
+            background: linear-gradient(145deg, #003087, #0055A4);
             color: #FFFFFF;
             text-align: center;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
         .download-btn:hover, .register-btn:hover {
-            background: #E0E0E0;
-            color: #003087;
-            box-shadow: 0 0 15px rgba(0, 48, 135, 0.7);
+            background: linear-gradient(145deg, #0055A4, #003087);
+            color: #FFFFFF;
+            box-shadow: 0 0 20px rgba(0, 48, 135, 0.8);
+            transform: scale(1.05);
+        }
+        body.light-mode .download-btn,
+        body.light-mode .register-btn {
+            background: linear-gradient(145deg, #003087, #0055A4);
+            color: #FFFFFF;
+        }
+        body.light-mode .download-btn:hover,
+        body.light-mode .register-btn:hover {
+            background: linear-gradient(145deg, #0055A4, #003087);
+            color: #FFFFFF;
+            box-shadow: 0 0 20px rgba(0, 48, 135, 0.8);
             transform: scale(1.05);
         }
         .social-group {
@@ -166,7 +246,7 @@
             color: #FFFFFF;
             text-decoration: none;
             margin-right: 5px;
-            transition: all 0.3s ease;
+            transition: color 0.5s ease;
         }
         .social-group:hover .social-name {
             color: #E0E0E0;
@@ -178,6 +258,17 @@
             width: 16px;
             height: 16px;
             vertical-align: middle;
+            filter: brightness(0) invert(1);
+            transition: filter 0.5s ease;
+        }
+        body.light-mode .social-icon {
+            filter: none;
+        }
+        body.light-mode .social-icon[src*="facebook"] {
+            filter: invert(14%) sepia(85%) saturate(1917%) hue-rotate(202deg) brightness(90%) contrast(93%);
+        }
+        body.light-mode .social-icon[src*="instagram"] {
+            filter: invert(14%) sepia(85%) saturate(1917%) hue-rotate(202deg) brightness(90%) contrast(93%);
         }
         .tooltip {
             position: relative;
@@ -228,7 +319,6 @@
             visibility: visible;
             opacity: 1;
         }
-        /* Styling for Round Images */
         .round-image {
             display: none;
             position: absolute;
@@ -249,7 +339,6 @@
             opacity: 1;
             transform: translateX(-50%) scale(1);
         }
-        /* SVG Animations for Rounds */
         .balloon-icon, .lego-icon, .maze-icon {
             display: inline-block;
             margin-left: 10px;
@@ -257,25 +346,136 @@
         .balloon-icon {
             filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.7));
         }
-        /* Progress Bar */
         .progress-bar {
             position: fixed;
             top: 0;
             left: 0;
             width: 0;
             height: 5px;
-            background: #003087;
+            background: linear-gradient(to right, #003087, #0078D4);
             z-index: 1000;
             transition: width 0.3s ease;
+            animation: pulseColor 2s infinite;
         }
-        /* Mobile Styles */
+        @keyframes pulseColor {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .theme-toggle {
+            width: 35px;
+            height: 35px;
+            background: #FFC107;
+            border: none;
+            border-radius: 50%;
+            color: #121212;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 12px rgba(255, 193, 7, 0.8);
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 18px rgba(255, 193, 7, 1);
+        }
+        body.light-mode .theme-toggle {
+            background: #FFC107;
+            color: #121212;
+            box-shadow: 0 0 12px rgba(255, 193, 7, 0.8);
+        }
+        body.light-mode .theme-toggle:hover {
+            box-shadow: 0 0 18px rgba(255, 193, 7, 1);
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .theme-toggle.animate-icon {
+            animation: spin 0.5s ease-in-out;
+        }
+        .theme-toggle .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #003087;
+            color: #FFFFFF;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1002;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+            font-size: 12px;
+        }
+        .theme-toggle:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        body.light-mode .theme-toggle .tooltiptext {
+            background-color: #003087;
+            color: #FFFFFF;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(145deg, #003087, #0055A4);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            animation: fadeInOut 0.3s ease-in-out;
+        }
+        .back-to-top:hover {
+            background: linear-gradient(145deg, #0055A4, #003087);
+            color: #FFFFFF;
+            box-shadow: 0 0 20px rgba(0, 48, 135, 0.8);
+            transform: scale(1.05);
+        }
+        body.light-mode .back-to-top {
+            background: linear-gradient(145deg, #003087, #0055A4);
+            color: #FFFFFF;
+        }
+        body.light-mode .back-to-top:hover {
+            background: linear-gradient(145deg, #0055A4, #003087);
+            color: #FFFFFF;
+            box-shadow: 0 0 20px rgba(0, 48, 135, 0.8);
+            transform: scale(1.05);
+        }
         @media (max-width: 768px) {
             body {
                 padding: 20px;
                 background-size: cover;
             }
+            body.light-mode {
+                background-size: cover;
+            }
+            body.light-mode .container {
+                background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(220, 220, 220, 0.9));
+            }
             .container {
-                padding: 20px;
+                padding: 30px;
                 border-radius: 0;
                 box-shadow: none;
                 border: none;
@@ -288,10 +488,11 @@
             }
             h2 {
                 font-size: 20px;
-                margin-top: 15px;
+                margin-top: 20px;
             }
             p, li {
                 font-size: 14px;
+                margin: 10px 0;
             }
             .tooltip .tooltiptext {
                 width: 90%;
@@ -308,6 +509,13 @@
             .tooltip .tooltiptext::after {
                 top: auto;
                 bottom: 100%;
+                border-color: transparent transparent #003087 transparent;
+            }
+            body.light-mode .tooltip .tooltiptext {
+                background-color: #003087;
+                color: #FFFFFF;
+            }
+            body.light-mode .tooltip .tooltiptext::after {
                 border-color: transparent transparent #003087 transparent;
             }
             .tooltip:hover .tooltiptext {
@@ -328,6 +536,30 @@
             }
             .download-btn, .register-btn {
                 max-width: 100%;
+                padding: 10px 20px;
+            }
+            .theme-toggle {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+            .header-content {
+                gap: 10px;
+            }
+            .theme-toggle .tooltiptext {
+                visibility: hidden;
+                opacity: 0;
+            }
+            .theme-toggle.active .tooltiptext {
+                visibility: visible;
+                opacity: 1;
+                top: calc(100% + 5px);
+            }
+            .back-to-top {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 16px;
+                font-size: 14px;
             }
         }
         @keyframes fadeIn {
@@ -355,6 +587,10 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.2); }
             100% { transform: scale(1); }
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
         @media print {
             body {
@@ -398,6 +634,12 @@
             .progress-bar {
                 display: none;
             }
+            .theme-toggle {
+                display: none;
+            }
+            .back-to-top {
+                display: none;
+            }
             @page {
                 size: A4;
                 margin: 20mm;
@@ -406,11 +648,16 @@
     </style>
 </head>
 <body>
-    <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
     <div class="container">
-        <h1>ROBO COMPETITION RULE BOOK</h1>
+        <div class="header-content">
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Switch to Light Mode">
+                <span class="tooltiptext" id="theme-tooltip">Switch to Light Mode</span>
+                ☀️
+            </button>
+            <h1>ROBO COMPETITION RULE BOOK</h1>
+        </div>
 
         <div class="section">
             <h2>WHO ARE WE?</h2>
@@ -466,7 +713,7 @@
                     <animateTransform attributeName="transform" type="translate" from="0 0" to="0 -5" dur="1.5s" repeatCount="indefinite" additive="sum" />
                     <animateTransform attributeName="transform" type="translate" from="0 -5" to="0 0" dur="1.5s" begin="1.5s" repeatCount="indefinite" additive="sum" />
                 </svg>
-                <img src="https://i.imgur.com/9Qflc5x.jpg" alt="Balloon Popping" class="round-image">
+                <img src="https://i.imgur.com/9Qflc5x.jpg" alt="Balloon Popping" class="round-image" loading="lazy">
             </h2>
             <p><strong>Description</strong>: The robot must pop balloons that are identified as "correct" while avoiding those marked as "wrong." Balloons will be placed randomly in the arena.</p>
             <p><strong>Scoring</strong>:</p>
@@ -488,7 +735,7 @@
                     <circle cx="20" cy="20" r="2" fill="black" />
                     <animateTransform attributeName="transform" type="rotate" from="0 15 15" to="360 15 15" dur="3s" repeatCount="indefinite" />
                 </svg>
-                <img src="https://i.imgur.com/ZZUSmUA.jpg" alt="LEGO Shape Builder" class="round-image">
+                <img src="https://i.imgur.com/ZZUSmUA.jpg" alt="LEGO Shape Builder" class="round-image" loading="lazy">
             </h2>
             <p><strong>Description</strong>: Teams will use LEGO pieces to build a specific shape provided by the organizers.</p>
             <p><strong>Evaluation Criteria</strong>:</p>
@@ -506,7 +753,7 @@
                     <path d="M5 5 H25 V25 H5 Z M10 10 H20 V20 H10 Z" stroke="white" stroke-width="2" fill="none" />
                     <animate attributeName="stroke-dasharray" from="0 100" to="100 0" dur="2s" repeatCount="indefinite" />
                 </svg>
-                <img src="https://i.imgur.com/B3aFWct.jpg" alt="Maze by Line Follower" class="round-image">
+                <img src="https://i.imgur.com/B3aFWct.jpg" alt="Maze by Line Follower" class="round-image" loading="lazy">
             </h2>
             <p><strong>Description</strong>: The robot must navigate a maze autonomously by following a defined path (usually a black or white line).</p>
             <p><strong>Scoring</strong>: Based on total time taken and the number of path errors or deviations.</p>
@@ -601,27 +848,25 @@
         </div>
     </div>
 
-    <!-- Audio Elements -->
+    <button class="back-to-top" onclick="scrollToTop()">⬆ Back to Top</button>
+
     <audio id="balloon-pop" src="https://www.soundjay.com/buttons/sounds/pop-01.mp3"></audio>
     <audio id="gears-sound" src="https://www.soundjay.com/mechanical/sounds/gears-01.mp3"></audio>
 
     <script>
-        // Tooltip Functionality
         document.querySelectorAll('.tooltip').forEach(tooltip => {
             const tooltipText = tooltip.querySelector('.tooltiptext');
             const closeBtn = tooltipText.querySelector('.close-btn');
 
             tooltip.addEventListener('click', function(event) {
-                event.stopPropagation(); // Prevent click from bubbling to document
+                event.stopPropagation();
                 if (window.matchMedia("(max-width: 768px)").matches) {
-                    // Close all other tooltips
                     document.querySelectorAll('.tooltip.active').forEach(t => {
                         if (t !== this) {
                             t.classList.remove('active');
                         }
                     });
 
-                    // Toggle current tooltip
                     if (this.classList.contains('active')) {
                         this.classList.remove('active');
                     } else {
@@ -633,7 +878,6 @@
 
             tooltip.addEventListener('mouseover', function() {
                 if (!window.matchMedia("(max-width: 768px)").matches) {
-                    // Close all other tooltips
                     document.querySelectorAll('.tooltip').forEach(t => {
                         if (t !== this) {
                             t.querySelector('.tooltiptext').style.visibility = 'hidden';
@@ -652,14 +896,12 @@
                 }
             });
 
-            // Close button functionality
             closeBtn.addEventListener('click', function(event) {
-                event.stopPropagation(); // Prevent click from bubbling to tooltip
+                event.stopPropagation();
                 tooltip.classList.remove('active');
             });
         });
 
-        // Close tooltips when clicking outside
         document.addEventListener('click', function(event) {
             if (window.matchMedia("(max-width: 768px)").matches) {
                 const tooltips = document.querySelectorAll('.tooltip');
@@ -679,7 +921,6 @@
             }
         });
 
-        // Audio for Rounds
         document.querySelectorAll('h2').forEach(h2 => {
             if (h2.textContent.includes('Balloon Popping')) {
                 h2.addEventListener('click', () => {
@@ -688,12 +929,115 @@
             }
         });
 
-        // Progress Bar
         window.addEventListener('scroll', () => {
             const winScroll = document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
             document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggleBtn = document.querySelector('.theme-toggle');
+            const themeTooltip = document.querySelector('#theme-tooltip');
+            let opacity = 1;
+            let blur = 0;
+            let brightness = 1;
+
+            function dissolve(timestamp) {
+                opacity -= 0.02;
+                blur += 0.1;
+                brightness -= 0.02;
+
+                body.style.opacity = opacity;
+                body.style.filter = `brightness(${brightness}) blur(${blur}px)`;
+
+                if (opacity > 0) {
+                    requestAnimationFrame(dissolve);
+                } else {
+                    themeToggleBtn.classList.add('animate-icon');
+                    if (body.classList.contains('light-mode')) {
+                        body.classList.remove('light-mode');
+                        themeToggleBtn.innerHTML = '<span class="tooltiptext" id="theme-tooltip">Switch to Light Mode</span>☀️';
+                        themeToggleBtn.setAttribute('aria-label', 'Switch to Light Mode');
+                        localStorage.setItem('theme', 'dark');
+                    } else {
+                        body.classList.add('light-mode');
+                        themeToggleBtn.innerHTML = '<span class="tooltiptext" id="theme-tooltip">Switch to Dark Mode</span>🌙';
+                        themeToggleBtn.setAttribute('aria-label', 'Switch to Dark Mode');
+                        localStorage.setItem('theme', 'light');
+                    }
+                    reappear();
+                }
+            }
+
+            function reappear() {
+                opacity += 0.02;
+                blur -= 0.1;
+                brightness += 0.02;
+
+                body.style.opacity = opacity;
+                body.style.filter = `brightness(${brightness}) blur(${blur}px)`;
+
+                if (opacity < 1) {
+                    requestAnimationFrame(reappear);
+                } else {
+                    body.style.opacity = 1;
+                    body.style.filter = 'none';
+                }
+            }
+
+            requestAnimationFrame(dissolve);
+        }
+
+        // Initialize theme on page load
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggleBtn = document.querySelector('.theme-toggle');
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-mode');
+                themeToggleBtn.innerHTML = '<span class="tooltiptext" id="theme-tooltip">Switch to Dark Mode</span>🌙';
+                themeToggleBtn.setAttribute('aria-label', 'Switch to Dark Mode');
+            } else {
+                themeToggleBtn.innerHTML = '<span class="tooltiptext" id="theme-tooltip">Switch to Light Mode</span>☀️';
+                themeToggleBtn.setAttribute('aria-label', 'Switch to Light Mode');
+            }
+        })();
+
+        document.querySelector('.theme-toggle').addEventListener('click', function(event) {
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                event.stopPropagation();
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                } else {
+                    this.classList.add('active');
+                }
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                const themeToggle = document.querySelector('.theme-toggle');
+                if (!themeToggle.contains(event.target)) {
+                    themeToggle.classList.remove('active');
+                }
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        window.addEventListener('scroll', () => {
+            const backToTopBtn = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
         });
     </script>
 </body>
