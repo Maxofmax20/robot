@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Robo Competition Registration</title>
+    <link rel="icon" type="image/png" href="https://i.imgur.com/Se8TLnw.png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -107,37 +108,6 @@
         .radio-group input {
             margin-right: 5px;
         }
-        .university-search {
-            position: relative;
-        }
-        #universitySearch {
-            display: none;
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #444;
-            border-radius: 5px;
-            background: rgba(42, 42, 42, 0.7);
-            color: #FFFFFF;
-        }
-        #universityList {
-            display: none;
-            width: 100%;
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid #444;
-            border-radius: 5px;
-            background: rgba(42, 42, 42, 0.7);
-            color: #FFFFFF;
-            position: absolute;
-            z-index: 1000;
-        }
-        #universityList option {
-            padding: 10px;
-            cursor: pointer;
-        }
-        #universityList option:hover {
-            background: #003087;
-        }
         .team-member {
             background: rgba(50, 50, 50, 0.5);
             padding: 15px;
@@ -205,7 +175,7 @@
     <div class="container">
         <h1>Robo Competition Registration</h1>
 
-        <form id="registrationForm" onsubmit="return validateForm(event)">
+        <form id="registrationForm">
             <!-- Team Leader Info -->
             <h2>Team Leader Information (Member 1)</h2>
             <label for="leaderName">Name</label>
@@ -221,9 +191,8 @@
             </div>
 
             <div id="universityField" style="display: none;">
-                <label for="universitySearch">Search for your university</label>
-                <input type="text" id="universitySearch" placeholder="Type to search for your university..." oninput="filterUniversities()">
-                <select id="universityList" name="university" onchange="updateSearchInput()">
+                <label for="universityList">Select your university</label>
+                <select id="universityList" name="university">
                     <option value="">Select your university</option>
                     <option value="Horus University">Horus University</option>
                     <option value="Cairo University">Cairo University</option>
@@ -299,37 +268,16 @@
             const isStudent = document.querySelector('input[name="isStudent"]:checked').value;
             const universityField = document.getElementById('universityField');
             const universityList = document.getElementById('universityList');
-            const universitySearch = document.getElementById('universitySearch');
 
             if (isStudent === 'yes') {
                 universityField.style.display = 'block';
                 universityList.style.display = 'block';
-                universitySearch.style.display = 'block';
                 universityList.required = true;
             } else {
                 universityField.style.display = 'none';
                 universityList.style.display = 'none';
-                universitySearch.style.display = 'none';
                 universityList.required = false;
             }
-        }
-
-        // University Search Functionality
-        function filterUniversities() {
-            const input = document.getElementById('universitySearch').value.toLowerCase();
-            const select = document.getElementById('universityList');
-            const options = select.getElementsByTagName('option');
-
-            for (let i = 1; i < options.length; i++) {
-                const textValue = options[i].textContent.toLowerCase();
-                options[i].style.display = textValue.includes(input) ? '' : 'none';
-            }
-        }
-
-        function updateSearchInput() {
-            const select = document.getElementById('universityList');
-            const searchInput = document.getElementById('universitySearch');
-            searchInput.value = select.options[select.selectedIndex].text;
         }
 
         // Dynamic Team Members Fields
@@ -371,24 +319,39 @@
             }
         }
 
-        // Form Validation
-        function validateForm(event) {
+        // Form Submission to Google Apps Script
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            const form = document.getElementById('registrationForm');
-            const count = parseInt(document.getElementById('additionalMembersCount').value);
 
+            const count = parseInt(document.getElementById('additionalMembersCount').value);
             if (count < 1 || count > 5) {
                 document.getElementById('teamMembersError').style.display = 'block';
-                return false;
+                return;
             }
 
-            // If validation passes, you can submit the form
-            alert('Registration submitted successfully!');
-            form.reset();
-            toggleUniversityField();
-            updateTeamMembers();
-            return false;
-        }
+            const formData = new FormData(this);
+            const url = 'https://script.google.com/macros/s/AKfycbz9fV9081y094hmfEpfsrgjmV-06wmcrnUp1QGSYubw4SAQiaZXMXOZjeFj1JVTi2w4/exec';
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                if (result === 'Success') {
+                    alert('Registration submitted successfully!');
+                    this.reset();
+                    toggleUniversityField();
+                    updateTeamMembers();
+                } else {
+                    alert('Error submitting registration. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error submitting registration. Please try again.');
+            });
+        });
 
         // Initialize with 1 additional team member
         updateTeamMembers();
