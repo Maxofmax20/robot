@@ -82,7 +82,7 @@
         select {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
             border: 1px solid #444;
             border-radius: 5px;
             background: rgba(42, 42, 42, 0.7);
@@ -136,6 +136,76 @@
             margin-bottom: 15px;
             display: none;
         }
+        .field-error {
+            color: #FF4040;
+            font-size: 12px;
+            margin-bottom: 10px;
+            display: none;
+        }
+        /* Loading Animation */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #FFFFFF;
+            border-top: 5px solid #003087;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Success/Error Message */
+        .message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(30, 30, 30, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            text-align: center;
+            color: #FFFFFF;
+            font-size: 18px;
+        }
+        .message.success {
+            border: 2px solid #00FF00;
+        }
+        .message.error {
+            border: 2px solid #FF4040;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #003087;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .back-btn:hover {
+            background: #E0E0E0;
+            color: #003087;
+            box-shadow: 0 0 15px rgba(0, 48, 135, 0.7);
+            transform: scale(1.05);
+        }
         /* Mobile Styles */
         @media (max-width: 768px) {
             body {
@@ -160,6 +230,10 @@
             label, input, select {
                 font-size: 14px;
             }
+            .message {
+                width: 80%;
+                font-size: 16px;
+            }
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -172,7 +246,12 @@
     </style>
 </head>
 <body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+    <div class="message" id="messageBox"></div>
     <div class="container">
+        <a href="index.html" class="back-btn">Back to Rulebook</a>
         <h1>Robo Competition Registration</h1>
 
         <form id="registrationForm">
@@ -180,9 +259,11 @@
             <h2>Team Leader Information (Member 1)</h2>
             <label for="leaderName">Name</label>
             <input type="text" id="leaderName" name="leaderName" placeholder="Enter your name" required>
+            <div class="field-error" id="leaderNameError">Please enter a valid name (at least 2 characters).</div>
 
             <label for="leaderAge">Age</label>
             <input type="number" id="leaderAge" name="leaderAge" min="16" placeholder="Enter your age" required>
+            <div class="field-error" id="leaderAgeError">Age must be 16 or older.</div>
 
             <label>Are you a university student?</label>
             <div class="radio-group">
@@ -239,33 +320,37 @@
                     <option value="Alamein International University">Alamein International University</option>
                     <option value="King Salman International University">King Salman International University</option>
                 </select>
+                <div class="field-error" id="universityError">Please select a university.</div>
             </div>
 
             <label for="leaderPhone">Phone Number</label>
             <input type="tel" id="leaderPhone" name="leaderPhone" placeholder="Enter your phone number" required>
+            <div class="field-error" id="leaderPhoneError">Please enter a valid phone number (10-11 digits).</div>
 
             <label for="leaderEmail">Email</label>
             <input type="email" id="leaderEmail" name="leaderEmail" placeholder="Enter your email" required>
+            <div class="field-error" id="leaderEmailError">Please enter a valid email address.</div>
 
             <!-- Team Info -->
             <h2>Team Information</h2>
             <label for="teamName">Team Name</label>
             <input type="text" id="teamName" name="teamName" placeholder="Enter your team name" required>
+            <div class="field-error" id="teamNameError">Please enter a valid team name (at least 2 characters).</div>
 
             <label for="additionalMembersCount">Number of Additional Team Members (1-5)</label>
             <input type="number" id="additionalMembersCount" name="additionalMembersCount" min="1" max="5" value="1" onchange="updateTeamMembers()" required>
-            <div id="teamMembersError" class="error">Number of additional team members must be between 1 and 5.</div>
+            <div class="field-error" id="additionalMembersCountError">Number of additional team members must be between 1 and 5.</div>
 
             <div id="teamMembers"></div>
 
-            <input type="submit" value="Register">
+            <input type="submit" value="Register" id="submitBtn">
         </form>
     </div>
 
     <script>
         // Toggle University Field
         function toggleUniversityField() {
-            const isStudent = document.querySelector('input[name="isStudent"]:checked').value;
+            const isStudent = document.querySelector('input[name="isStudent"]:checked')?.value;
             const universityField = document.getElementById('universityField');
             const universityList = document.getElementById('universityList');
 
@@ -283,7 +368,7 @@
         // Dynamic Team Members Fields
         function updateTeamMembers() {
             const count = parseInt(document.getElementById('additionalMembersCount').value);
-            const errorDiv = document.getElementById('teamMembersError');
+            const errorDiv = document.getElementById('additionalMembersCountError');
             const teamMembersDiv = document.getElementById('teamMembers');
 
             // Validate additional members count
@@ -305,29 +390,135 @@
                     <h3>Team Member ${i + 1}</h3>
                     <label for="memberName${i}">Name</label>
                     <input type="text" id="memberName${i}" name="memberName${i}" placeholder="Enter member name" required>
+                    <div class="field-error" id="memberName${i}Error">Please enter a valid name (at least 2 characters).</div>
 
                     <label for="memberAge${i}">Age</label>
                     <input type="number" id="memberAge${i}" name="memberAge${i}" min="16" placeholder="Enter member age" required>
+                    <div class="field-error" id="memberAge${i}Error">Age must be 16 or older.</div>
 
                     <label for="memberPhone${i}">Phone Number</label>
                     <input type="tel" id="memberPhone${i}" name="memberPhone${i}" placeholder="Enter member phone number" required>
+                    <div class="field-error" id="memberPhone${i}Error">Please enter a valid phone number (10-11 digits).</div>
 
                     <label for="memberEmail${i}">Email</label>
                     <input type="email" id="memberEmail${i}" name="memberEmail${i}" placeholder="Enter member email" required>
+                    <div class="field-error" id="memberEmail${i}Error">Please enter a valid email address.</div>
                 `;
                 teamMembersDiv.appendChild(memberDiv);
             }
         }
 
-        // Form Submission to Google Apps Script
+        // Validation Functions
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validatePhone(phone) {
+            const phoneRegex = /^\d{10,11}$/;
+            return phoneRegex.test(phone);
+        }
+
+        function validateName(name) {
+            return name.trim().length >= 2;
+        }
+
+        function validateAge(age) {
+            return age >= 16;
+        }
+
+        function showError(fieldId, errorId, message) {
+            document.getElementById(errorId).textContent = message;
+            document.getElementById(errorId).style.display = 'block';
+            document.getElementById(fieldId).focus();
+            return false;
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.field-error').forEach(error => {
+                error.style.display = 'none';
+            });
+        }
+
+        // Form Validation and Submission
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
+            clearErrors();
+
+            // Validate Leader Info
+            const leaderName = document.getElementById('leaderName').value;
+            if (!validateName(leaderName)) {
+                return showError('leaderName', 'leaderNameError', 'Please enter a valid name (at least 2 characters).');
+            }
+
+            const leaderAge = parseInt(document.getElementById('leaderAge').value);
+            if (!validateAge(leaderAge)) {
+                return showError('leaderAge', 'leaderAgeError', 'Age must be 16 or older.');
+            }
+
+            const isStudent = document.querySelector('input[name="isStudent"]:checked')?.value;
+            if (!isStudent) {
+                return showError('isStudent', 'isStudentError', 'Please select if you are a university student.');
+            }
+
+            if (isStudent === 'yes') {
+                const university = document.getElementById('universityList').value;
+                if (!university) {
+                    return showError('universityList', 'universityError', 'Please select a university.');
+                }
+            }
+
+            const leaderPhone = document.getElementById('leaderPhone').value;
+            if (!validatePhone(leaderPhone)) {
+                return showError('leaderPhone', 'leaderPhoneError', 'Please enter a valid phone number (10-11 digits).');
+            }
+
+            const leaderEmail = document.getElementById('leaderEmail').value;
+            if (!validateEmail(leaderEmail)) {
+                return showError('leaderEmail', 'leaderEmailError', 'Please enter a valid email address.');
+            }
+
+            // Validate Team Info
+            const teamName = document.getElementById('teamName').value;
+            if (!validateName(teamName)) {
+                return showError('teamName', 'teamNameError', 'Please enter a valid team name (at least 2 characters).');
+            }
+
             const count = parseInt(document.getElementById('additionalMembersCount').value);
             if (count < 1 || count > 5) {
-                document.getElementById('teamMembersError').style.display = 'block';
-                return;
+                return showError('additionalMembersCount', 'additionalMembersCountError', 'Number of additional team members must be between 1 and 5.');
             }
+
+            // Validate Additional Members
+            for (let i = 1; i <= count; i++) {
+                const memberName = document.getElementById(`memberName${i}`).value;
+                if (!validateName(memberName)) {
+                    return showError(`memberName${i}`, `memberName${i}Error`, 'Please enter a valid name (at least 2 characters).');
+                }
+
+                const memberAge = parseInt(document.getElementById(`memberAge${i}`).value);
+                if (!validateAge(memberAge)) {
+                    return showError(`memberAge${i}`, `memberAge${i}Error`, 'Age must be 16 or older.');
+                }
+
+                const memberPhone = document.getElementById(`memberPhone${i}`).value;
+                if (!validatePhone(memberPhone)) {
+                    return showError(`memberPhone${i}`, `memberPhone${i}Error`, 'Please enter a valid phone number (10-11 digits).');
+                }
+
+                const memberEmail = document.getElementById(`memberEmail${i}`).value;
+                if (!validateEmail(memberEmail)) {
+                    return showError(`memberEmail${i}`, `memberEmail${i}Error`, 'Please enter a valid email address.');
+                }
+            }
+
+            // Show Loading Animation
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const messageBox = document.getElementById('messageBox');
+            const submitBtn = document.getElementById('submitBtn');
+            loadingOverlay.style.display = 'flex';
+            submitBtn.disabled = true;
 
             const formData = new FormData(this);
             const url = 'https://script.google.com/macros/s/AKfycbz9fV9081y094hmfEpfsrgjmV-06wmcrnUp1QGSYubw4SAQiaZXMXOZjeFj1JVTi2w4/exec';
@@ -338,18 +529,38 @@
             })
             .then(response => response.text())
             .then(result => {
+                loadingOverlay.style.display = 'none';
+                submitBtn.disabled = false;
+
                 if (result === 'Success') {
-                    alert('Registration submitted successfully!');
-                    this.reset();
-                    toggleUniversityField();
-                    updateTeamMembers();
+                    messageBox.className = 'message success';
+                    messageBox.textContent = 'Registration submitted successfully!';
+                    messageBox.style.display = 'block';
+                    setTimeout(() => {
+                        messageBox.style.display = 'none';
+                        this.reset();
+                        toggleUniversityField();
+                        updateTeamMembers();
+                    }, 3000);
                 } else {
-                    alert('Error submitting registration. Please try again.');
+                    messageBox.className = 'message error';
+                    messageBox.textContent = 'Error submitting registration. Please try again.';
+                    messageBox.style.display = 'block';
+                    setTimeout(() => {
+                        messageBox.style.display = 'none';
+                    }, 3000);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Error submitting registration. Please try again.');
+                loadingOverlay.style.display = 'none';
+                submitBtn.disabled = false;
+                messageBox.className = 'message error';
+                messageBox.textContent = 'Error submitting registration. Please try again.';
+                messageBox.style.display = 'block';
+                setTimeout(() => {
+                    messageBox.style.display = 'none';
+                }, 3000);
             });
         });
 
