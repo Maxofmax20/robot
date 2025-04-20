@@ -94,9 +94,17 @@
         body.light-mode input[type="email"],
         body.light-mode input[type="tel"],
         body.light-mode select {
-            background: rgba(220, 220, 220, 0.9);
+            background: linear-gradient(145deg, rgba(220, 220, 220, 0.9), rgba(240, 240, 240, 0.8));
             color: #333333;
             border: 1px solid #CCC;
+        }
+        body.light-mode select option {
+            background: #E0E0E0;
+            color: #333333;
+        }
+        body.light-mode select option:checked {
+            background: #CCCCCC;
+            color: #333333;
         }
         body.light-mode input:focus,
         body.light-mode select:focus {
@@ -183,6 +191,14 @@
             font-size: 16px;
             transition: all 0.3s ease;
             animation: slideInRight 1.2s ease-in-out;
+        }
+        select option {
+            background: #2A2A2A;
+            color: #FFFFFF;
+        }
+        select option:checked {
+            background: #1A1A1A;
+            color: #FFFFFF;
         }
         input:focus,
         select:focus {
