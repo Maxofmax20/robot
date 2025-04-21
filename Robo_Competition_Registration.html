@@ -125,6 +125,17 @@
             color: #333333;
             border: 2px solid #FF4040;
         }
+        body.light-mode .overview-section {
+            background: linear-gradient(145deg, rgba(240, 240, 240, 0.9), rgba(200, 200, 200, 0.8));
+            border: 1px solid #CCC;
+        }
+        body.light-mode .overview-section h3 {
+            color: #003087;
+        }
+        body.light-mode .overview-section p,
+        body.light-mode .overview-section li {
+            color: #333333;
+        }
         .container {
             max-width: 900px;
             background: linear-gradient(145deg, rgba(30, 30, 30, 0.95), rgba(50, 50, 50, 0.9));
@@ -509,6 +520,46 @@
             box-shadow: 0 0 20px rgba(0, 48, 135, 0.8);
             transform: scale(1.05);
         }
+        .overview-section {
+            background: linear-gradient(145deg, rgba(42, 42, 42, 0.9), rgba(60, 60, 60, 0.8));
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            transition: background 0.5s ease, border 0.5s ease;
+        }
+        .overview-section h3 {
+            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: #003087;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #003087;
+            padding-bottom: 5px;
+        }
+        .overview-section p {
+            font-size: 16px;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+        .overview-section ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        .overview-section li {
+            font-size: 16px;
+            color: #FFFFFF;
+            margin-bottom: 5px;
+        }
+        .overview-section a {
+            color: #00BFFF;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .overview-section a:hover {
+            text-decoration: underline;
+        }
         @media (max-width: 768px) {
             body {
                 padding: 20px;
@@ -603,6 +654,16 @@
                 padding: 6px 12px;
                 font-size: 12px;
             }
+            .overview-section {
+                padding: 15px;
+            }
+            .overview-section h3 {
+                font-size: 18px;
+            }
+            .overview-section p,
+            .overview-section li {
+                font-size: 14px;
+            }
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -684,6 +745,24 @@
                 <span class="tooltiptext" id="theme-tooltip">Switch to Light Mode</span>
                 ☀️
             </button>
+        </div>
+
+        <div class="overview-section">
+            <h3>Competition Overview</h3>
+            <p>Welcome to the Robo Competition, organized by IEEE Technical Teams from Horus University, Benha University, and South Valley University! This thrilling challenge brings together teams to showcase their innovative robots in three unique stages, all within a tight <strong>10-minute window</strong>. The competition tests <strong>speed</strong>, <strong>performance</strong>, <strong>strategy</strong>, <strong>problem-solving</strong>, and <strong>teamwork</strong>.</p>
+            <h3>Robot Requirements</h3>
+            <ul>
+                <li>Maximum size: 30 cm × 30 cm.</li>
+                <li>Type: Can be remotely operated or autonomous, depending on the round.</li>
+                <li>Power: Must have an independent power source (no external power connections during the game).</li>
+            </ul>
+            <h3>Rounds Overview</h3>
+            <ul>
+                <li><strong>Round 1 - Balloon Popping:</strong> Your robot must pop specific balloons (Target and Bonus) while avoiding Penalty and Opponent's balloons. Remote control is allowed.</li>
+                <li><strong>Round 2 - Color Cube Arrangement:</strong> Collect colored cubes (representing your team, opponent, or neutral) and recreate a specific shape shown on a poster.</li>
+                <li><strong>Round 3 - Maze Challenge (Line Follower):</strong> Navigate an autonomous robot through a single-row maze to reach the end as quickly as possible.</li>
+            </ul>
+            <p>For detailed rules, please refer to the <a href="Rule_book.pdf" target="_blank">official Rule Book</a>.</p>
         </div>
 
         <form id="registrationForm">
